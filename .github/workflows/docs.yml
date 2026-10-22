@@ -1,4 +1,4 @@
-name: Build handbook
+name: Build handbook (Docusaurus)
 
 on:
   push:
@@ -19,12 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: pip install "mkdocs==1.6.1" "mkdocs-material==9.7.7"
-      - run: mkdocs build --strict
-      # The Docusaurus version of the same handbook, published at /docusaurus/ for comparison
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -34,10 +28,9 @@ jobs:
         working-directory: docusaurus
       - run: npm run build
         working-directory: docusaurus
-      - run: cp -r docusaurus/build site/docusaurus
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: docusaurus/build
 
   deploy:
     needs: build

@@ -6,9 +6,9 @@ const config = {
   title: 'Requisio handbook',
   tagline: 'How Requisio works: features, flowcharts, issues and use cases',
   url: 'https://saanchi365.github.io',
-  baseUrl: '/requisio-ux-demo/docusaurus/',
+  baseUrl: '/requisio-ux-demo-docusaurus/',
   organizationName: 'saanchi365',
-  projectName: 'requisio-ux-demo',
+  projectName: 'requisio-ux-demo-docusaurus',
   trailingSlash: true,
   onBrokenLinks: 'throw',
 
@@ -40,7 +40,7 @@ const config = {
       title: 'Requisio handbook',
       style: 'primary',
       items: [
-        {to: '/', label: 'Home', position: 'left', activeBaseRegex: '^/requisio-ux-demo/docusaurus/$'},
+        {to: '/', label: 'Home', position: 'left', activeBaseRegex: '^/requisio-ux-demo-docusaurus/$'},
         {type: 'docSidebar', sidebarId: 'features', label: 'Features', position: 'left'},
         {type: 'docSidebar', sidebarId: 'users', label: 'Users', position: 'left'},
         {to: '/requirements/', label: 'Requirements', position: 'left'},

@@ -1,4 +1,9 @@
-# 🧾 Requisio – purchase requests (UX demo)
+# 🧾 Requisio – purchase requests (UX demo, Docusaurus copy)
+
+> **This is a copy of [requisio-ux-demo](https://github.com/saanchi365/requisio-ux-demo)**, made only to compare two website builders.
+> This copy builds the handbook with **Docusaurus**: https://saanchi365.github.io/requisio-ux-demo-docusaurus/
+> The original builds it with **MkDocs Material**: https://saanchi365.github.io/requisio-ux-demo/
+> Issues and the project board live in the original; links here point there.
 
 > **Demo project with made-up content**, used to practise a UX documentation workflow on GitHub
 > (requirements as issues, features on a board, flowcharts, and later GitHub Pages).
