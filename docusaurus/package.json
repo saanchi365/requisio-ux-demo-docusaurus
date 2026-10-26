@@ -2,11 +2,10 @@
   "name": "requisio-handbook-docusaurus",
   "version": "0.0.0",
   "private": true,
-  "description": "The Requisio handbook built with Docusaurus, to compare with the MkDocs Material version",
+  "description": "The Requisio handbook built with Docusaurus, to compare website builders",
   "scripts": {
-    "sync": "node scripts/sync.mjs",
-    "start": "npm run sync && docusaurus start",
-    "build": "npm run sync && docusaurus build",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
     "serve": "docusaurus serve"
   },
   "dependencies": {
@@ -23,7 +22,15 @@
     "node": ">=20.0"
   },
   "browserslist": {
-    "production": [">0.5%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

@@ -1,6 +1,6 @@
 node_modules/
 build/
 .docusaurus/
-# made fresh on every build by scripts/sync.mjs
-docs/users/
-src/data/flows.json
+# made fresh on every build by scripts/prepare_data.py
+src/data/
+static/wireframes/

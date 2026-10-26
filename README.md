@@ -1,22 +1,19 @@
-# 🧾 Requisio – purchase requests (UX demo, Docusaurus copy)
+# Requisio handbook — Docusaurus version (for comparison)
 
-> **This is a copy of [requisio-ux-demo](https://github.com/saanchi365/requisio-ux-demo)**, made only to compare two website builders.
+> **This is a copy of [requisio-ux-demo](https://github.com/saanchi365/requisio-ux-demo), made only to compare website builders.**
 > This copy builds the handbook with **Docusaurus**: https://saanchi365.github.io/requisio-ux-demo-docusaurus/
-> The original builds it with **MkDocs Material**: https://saanchi365.github.io/requisio-ux-demo/
-> Issues and the project board live in the original; links here point there.
+> The same design is built with **Hugo** in [requisio-ux-demo-hugo](https://github.com/saanchi365/requisio-ux-demo-hugo).
 
-> **Demo project with made-up content**, used to practise a UX documentation workflow on GitHub
-> (requirements as issues, features on a board, flowcharts, and later GitHub Pages).
-> Requisio is a fictional product.
+**Don't add issues, flowcharts or wireframes here.** Everything comes from the main project
+(issues, board, flowcharts, wireframes, user documents). On every update it publishes
+`handbook-data.json`, and this website is built from that file.
 
-Requisio helps employees **ask to buy things** (laptops, software, services), lets **approvers approve or
-reject** requests, and lets **admins set up the rules**.
-
-| Where | What |
+| What | Where |
 |---|---|
-| [docs/user-understanding.md](docs/user-understanding.md) | Who uses Requisio |
-| [docs/journey-map.md](docs/journey-map.md) | Journey of raising a purchase request |
-| [docs/use-cases.md](docs/use-cases.md) | Main use cases |
-| [flowcharts/](flowcharts/) | One flowchart per flow, linked to the issues it is based on |
-| **Issues** tab | Requirements: 4 features, each with sub-issues |
-| **Projects** tab | The board, grouped by feature |
+| The pages (how each tab looks and reacts) | `docusaurus/src/components/HandbookPage.jsx` — React components |
+| Which pages exist | `docusaurus/plugins/handbook/index.js` — one page per feature and tab, made from the data |
+| Look | `docusaurus/src/css/custom.css` (the same look as the Hugo version) |
+| Getting the data | `scripts/prepare_data.py` (the same file as the Hugo version) |
+| Sample wireframes (only in the copies, because the main project has none yet) | `sample-wireframes/` |
+
+The website rebuilds every hour, on every change here, and with **Actions → Build handbook (Docusaurus) → Run workflow**.

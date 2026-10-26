@@ -3,7 +3,9 @@ name: Build handbook (Docusaurus)
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  schedule:
+    - cron: "37 * * * *" # every hour, to pick up changes in the main project
+  workflow_dispatch: # the "Run workflow" button
 
 permissions:
   contents: read
@@ -19,6 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Step 1: get the data the main project publishes, add the sample wireframes
+      - run: python scripts/prepare_data.py docusaurus/src/data/handbook.json docusaurus/static/wireframes
+      # Step 2: Docusaurus turns the data into the website
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
