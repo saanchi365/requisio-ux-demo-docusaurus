@@ -59,7 +59,7 @@ function TopBar({onMenu}) {
   );
 }
 
-function Menu({scope, tab, doc, show}) {
+function Menu({scope, tab, doc, orphans, show}) {
   return (
     <nav className={`hb-side ${show ? 'show' : ''}`} aria-label="Features">
       <details className="hb-users" open={!!doc}>
@@ -75,7 +75,29 @@ function Menu({scope, tab, doc, show}) {
             <Link key={n} className={`hb-sl ${scope === n ? 'on' : ''}`} to={`/feature-${n}/${tab || 'overview'}/`}><Dot s={f.status} />{f.title}{f.comment_list.length > 0 && <span className="hb-cc">{f.comment_list.length}</span>}</Link>); })}
         </React.Fragment>
       ))}
+      <div className="hb-g">Other</div>
+      <Link className={`hb-sl ${orphans ? 'on' : ''}`} to="/not-under-a-feature/"><Dot s="To do" />Not under a feature<span className="hb-cc">{(D.orphans || []).length}</span></Link>
     </nav>
+  );
+}
+
+/* ---------------- requirements that are not inside any feature: a plain list, their level can't be known ---------------- */
+function Orphans() {
+  const list = D.orphans || [];
+  return (
+    <>
+      <nav className="hb-crumb" aria-label="Breadcrumb"><Link to="/all/overview/">All features</Link> › <span>Not under a feature</span></nav>
+      <h1>Not under a feature</h1>
+      <p className="brief">Requirements that aren't inside any feature on GitHub yet. Open each one and add it to the right feature (on the feature: Sub-issues → Add existing issue).</p>
+      {list.length ? (
+        <div className="tw" style={{marginTop: 16}}><table>
+          <thead><tr><th>#</th><th>Requirement</th><th>Status</th><th>Target</th><th>Assigned to</th><th>Given by</th><th>Priority</th><th>Comments</th><th /></tr></thead>
+          <tbody>{list.map((r) => (
+            <tr key={r.n}><td className="num">#{r.n}</td><td>{r.title}</td><td><Pill s={r.status} /></td><td className="num">{r.target_text || '—'}</td>
+              <td>{r.assignees.length ? r.assignees.join(', ') : <span className="xs">Not assigned</span>}</td><td>{r.given_by || '—'}</td><td>{r.priority || '—'}</td>
+              <td className="num">{r.comment_count || <span className="xs">—</span>}</td><td><a href={r.url}>Open on GitHub ↗</a></td></tr>))}</tbody></table></div>
+      ) : <div className="empty" style={{marginTop: 16}}><b>Nothing here</b>Every requirement is inside a feature.</div>}
+    </>
   );
 }
 
@@ -337,21 +359,21 @@ function Comments({f}) {
 
 /* ---------------- the page ---------------- */
 export default function HandbookPage({page}) {
-  const {scope, tab, doc} = page;
+  const {scope, tab, doc, orphans} = page;
   const f = scope && scope !== 'all' ? F[scope] : null;
   const [menu, setMenu] = useState(false);
   const counts = f ? {wireframes: f.wireframes.length, requirements: f.requirement_list.length, comments: f.comment_list.length}
     : {wireframes: D.wireframes.length, requirements: D.requirements.length, comments: D.comments.length};
   const Tab = {overview: Overview, wireframes: Wireframes, flowcharts: Flowcharts, requirements: Requirements, comments: Comments}[tab];
-  const title = doc ? D.users[doc].title : f ? f.title : 'All features';
+  const title = orphans ? 'Not under a feature' : doc ? D.users[doc].title : f ? f.title : 'All features';
   return (
     <Layout title={title} noFooter>
       <div className="hb">
         <TopBar onMenu={() => setMenu(!menu)} />
         <div className="hb-shell">
-          <Menu scope={f ? f.n : 'all'} tab={tab} doc={doc} show={menu} />
+          <Menu scope={orphans ? null : f ? f.n : 'all'} tab={tab} doc={doc} orphans={orphans} show={menu} />
           <main className="hb-main">
-            {doc ? (
+            {orphans ? <Orphans /> : doc ? (
               <>
                 <nav className="hb-crumb"><Link to="/all/overview/">{D.name}</Link> › <span>About users</span></nav>
                 <h1>{title}</h1>

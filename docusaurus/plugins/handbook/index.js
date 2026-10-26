@@ -22,6 +22,7 @@ module.exports = function handbookPlugin(context) {
         await add(`${context.baseUrl}feature-${f.n}/`, {scope: f.n, tab: 'overview'});
         for (const tab of TABS) await add(`${context.baseUrl}feature-${f.n}/${tab}/`, {scope: f.n, tab});
       }
+      await add(`${context.baseUrl}not-under-a-feature/`, {orphans: true});
       for (const doc of Object.keys(content.users)) await add(`${context.baseUrl}users/${doc}/`, {doc});
     },
   };
