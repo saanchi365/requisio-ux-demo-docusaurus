@@ -68,6 +68,7 @@ function Menu({scope, tab, doc, orphans, show}) {
       </details>
       <div style={{height: 10}} />
       <Link className={`hb-sl ${scope === 'all' && !doc ? 'on' : ''}`} to={`/all/${tab || 'overview'}/`}><Icon n="layers" /> All features<span className="hb-cc">{D.requirements.length}</span></Link>
+      <Link className={`hb-sl ${orphans ? 'on' : ''}`} to="/not-under-a-feature/"><Icon n="alert" /> Not under a feature<span className="hb-cc">{(D.orphans || []).length}</span></Link>
       {D.stage_groups.map((g) => (
         <React.Fragment key={g.stage}>
           <div className="hb-g">{g.stage}</div>
@@ -75,8 +76,6 @@ function Menu({scope, tab, doc, orphans, show}) {
             <Link key={n} className={`hb-sl ${scope === n ? 'on' : ''}`} to={`/feature-${n}/${tab || 'overview'}/`}><Dot s={f.status} />{f.title}{f.comment_list.length > 0 && <span className="hb-cc">{f.comment_list.length}</span>}</Link>); })}
         </React.Fragment>
       ))}
-      <div className="hb-g">Other</div>
-      <Link className={`hb-sl ${orphans ? 'on' : ''}`} to="/not-under-a-feature/"><Dot s="To do" />Not under a feature<span className="hb-cc">{(D.orphans || []).length}</span></Link>
     </nav>
   );
 }
@@ -301,7 +300,7 @@ function Flowcharts({f}) {
 
 function Requirements({f}) {
   const list = f ? D.requirements.filter((r) => r.feature === f.n) : D.requirements;
-  const sum = f ? f.summary : D.summary, qs = f ? f.all_questions : D.all_questions;
+  const sum = f ? f.summary : D.summary;
   const location = useLocation();
   const [flt, setFlt] = useState('All');
   const hl = (location.hash.match(/^#r-(\d+)$/) || [])[1];
@@ -335,9 +334,6 @@ function Requirements({f}) {
               <td className="num">{r.comment_count || <span className="xs">—</span>}</td>
             </tr>))}</tbody></table></div>
       ) : <div className="empty"><b>No requirements yet</b>Add them as sub-issues of this feature on GitHub.</div>}
-      <div className="cd" style={{marginTop: 14}}><div className="lbl"><Icon n="alert" /> Open questions{qs.length > 0 && ` · ${qs.length}`}</div>
-        {qs.map((x, i) => <div className="row" key={i}><span className="sm">{x.q}</span>{x.n ? <Link className="xs" to={reqUrl(R[x.n])} style={{textAlign: 'right'}}>#{x.n} {R[x.n].title}</Link> : <span className="xs">{f ? 'Whole feature' : x.feature ? F[x.feature].title : ''}</span>}</div>)}
-        {!qs.length && <p className="mu sm" style={{margin: 0}}>No open questions on these requirements.</p>}</div>
     </>
   );
 }
