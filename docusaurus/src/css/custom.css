@@ -185,3 +185,6 @@ html { --ifm-font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sa
 .hb table tr:nth-child(2n) { background: none }
 .hb .fcscroll .docusaurus-mermaid-container { text-align: center }
 .hb .users-doc table { display: table }
+/* Docusaurus has its own "row" style (pulls rows out to the edges and lets them wrap); undo it inside the handbook */
+.hb .row { margin: 0; flex-wrap: nowrap; --ifm-spacing-horizontal: 0 }
+.hb .row > * { flex-basis: auto; max-width: none }
